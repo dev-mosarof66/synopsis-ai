@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { FiFileText } from "react-icons/fi";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GeminiAI } from '@/app/utils/gemini-ai'
 import { NextRequest, NextResponse } from 'next/server'
