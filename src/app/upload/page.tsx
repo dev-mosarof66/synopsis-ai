@@ -2,6 +2,7 @@
 import { useState, ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
 import UploadPDF from "@/components/upload/upload-pdf";
+import axios from "axios";
 
 const UploadPDFPage = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -10,21 +11,38 @@ const UploadPDFPage = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-    if (selectedFile && selectedFile.type === "application/pdf") {
+    console.log(selectedFile);
+    if (selectedFile && selectedFile.size > 12 * 1024 * 1024) {
+      toast.error("File must be less than 12MB");
+      return;
+    }
+    if (selectedFile && selectedFile.type !== "application/pdf") {
+      toast.error("File must be a PDF");
+      return;
+    }
+    if (selectedFile) {
       setFile(selectedFile);
       toast.success("File selected successfully.");
-    } else {
-      setFile(null);
-      toast.error("Please upload a valid PDF file");
     }
   };
 
   const getSummary = async () => {
+    const formData = new FormData();
+    if (!file) {
+      toast.error("No PDF selected");
+      return;
+    } else {
+      formData.append("file", file);
+    }
+    setLoading(true);
     try {
-      setLoading(true);
-      setResponse('')
+      console.log("inside upload client");
+      const res = await axios.post("/api/upload", formData);
+      console.log(res.data);
     } catch (error) {
       console.log("error while generating pdf summary  : ", error);
+    } finally {
+      setLoading(false);
     }
   };
 

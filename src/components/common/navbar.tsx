@@ -1,12 +1,7 @@
 "use client";
 import Link from "next/link";
 import { FiFileText } from "react-icons/fi";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -16,12 +11,9 @@ const Navbar = () => {
         <div>
           <Link
             href="/"
-            className="flex items-center gap-1 text-xl sm:text-2xl xl:text-3xl text-gray-900 hover:opacity-90 active:scale-95 transition-all duration-300 delay-75 group"
+            className="flex items-center gap-1 text-base font-semibold text-gray-900 hover:opacity-90 active:scale-95 transition-all duration-300 delay-75 group"
           >
-            <FiFileText className="text-rose-700 group-hover:rotate-6 transition-transform duration-300 delay-75" />
-            <span className="font-semibold text-base sm:text-lg xl:text-xl">
-              Sommaire
-            </span>
+            synopsis ai
           </Link>
         </div>
         {/* cta button  */}
