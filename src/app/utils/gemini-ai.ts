@@ -10,9 +10,22 @@ export const GeminiAI = async (prompt: File) => {
             model: "gemini-2.5-flash",
             contents: `Summarize the content of this PDF file: ${prompt.name}
             - provide the title of the document as title.
-            -provide an array of concise  summary highlighting the key points and main ideas presented in each page.
-            - create an array of summary with key points as title and main ideas as description.
-            - as plain text, without markdown or any other formatting.
+            - provide an array of concise  summary highlighting the key points and main ideas presented in each page.
+            - create an array of summary with key points as title and main ideas as description
+            - the expected response format is as follows:
+            {
+                "title": "title of the document",
+                "summaries": [
+                    {
+                        "title": "title of page 1",
+                        "description": ["main idea 1"]
+                    },
+                    {
+                        "title": "title of page 2",
+                        "description": ["main idea 1"]
+                    }
+                ]
+            }
             `,
         });
         return response.text;

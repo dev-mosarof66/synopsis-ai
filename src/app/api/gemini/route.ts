@@ -7,15 +7,13 @@ import { GeminiAI } from '@/app/utils/gemini-ai'
 
 await connectDB()
 
-
-
 export async function POST(req: NextRequest) {
     try {
 
         const formData = await req.formData()
         const file = formData.get("file") as File;
 
-
+        console.log('file received at backend : ', file)
         if (!file) {
             return NextResponse.json({
                 success: false,
