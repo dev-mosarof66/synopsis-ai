@@ -5,7 +5,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 const Navbar = () => {
   return (
     <nav className="w-full  fixed top-0 left-0 backdrop-blur-sm z-50">
-      <div className="w-full max-w-7xl mx-auto flex items-center justify-between py-3 px-2">
+      <div className="w-full max-w-7xl mx-auto flex items-center justify-between py-3 px-4 md:px-0">
         {/* logo  */}
         <div>
           <Link

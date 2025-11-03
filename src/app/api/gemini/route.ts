@@ -1,21 +1,45 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GeminiAI } from '@/app/utils/gemini-ai'
 import { NextRequest, NextResponse } from 'next/server'
+import { connectDB } from '@/db/db'
+import { GeminiAI } from '@/app/utils/gemini-ai'
 
 
-export async function GET(req: NextRequest) {
+
+await connectDB()
+
+
+
+export async function POST(req: NextRequest) {
     try {
-        const res = await GeminiAI('Should i include langchain to send you pdf for getting a json response.')
-        console.log('gemini response : ', res)
+
+        const formData = await req.formData()
+        const file = formData.get("file") as File;
+
+
+        if (!file) {
+            return NextResponse.json({
+                success: false,
+                message: 'No PDF found.'
+            }, { status: 401 })
+        }
+
+        const response = await GeminiAI(file)
+
+        if (!response) {
+            return NextResponse.json({
+                success: false,
+                message: 'Error while generating response.'
+            }, { status: 401 })
+        }
+
         return NextResponse.json({
             success: true,
             message: 'File uploaded successfully.',
-            res
+            response
         }, { status: 201 })
     } catch (error: any) {
         console.log('error in uploading file : ', error)
-        return NextResponse.json({ 
+        return NextResponse.json({
             success: false,
             message: 'Internal server error.'
         }, { status: 500 })

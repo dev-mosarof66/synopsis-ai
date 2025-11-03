@@ -48,7 +48,7 @@ const UploadPDFPage = () => {
   };
 
   return (
-    <section className="w-full min-h-[92vh] bg-linear-to-br from-white to-gray-100 py-14 sm:py-20 px-4">
+    <section className="w-full min-h-[92vh] bg-linear-to-br from-white to-gray-100 py-14 sm:py-20 px-2">
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center pt-10 gap-8">
         {response.trim() !== "" ? (
           <div></div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { FaFilePdf } from "react-icons/fa";
 import { Button } from "../ui/button";
+import { HiUpload } from "react-icons/hi";
+import { Loader } from "../ui/spinner";
 
 type Props = {
   file: File | null;
@@ -45,11 +47,21 @@ const UploadPDF = ({ file, handleFileChange, getSummary, loading }: Props) => {
       {/* Submit button */}
       <Button
         onClick={getSummary}
-        className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-lg text-base shadow-sm transition-all"
+        className="w-48 h-10 bg-rose-500 hover:bg-rose-600 text-white rounded-md text-base shadow-sm transition-all"
         disabled={!file}
       >
-        {loading ? "AI is thinking..." : " Get Summary"}
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="flex items-center gap-2">
+            <span className="text-xl">
+              <HiUpload  className="animate-bounce" />
+            </span>
+            <span>Get Summary</span>
+          </div>
+        )}
       </Button>
+
     </div>
   );
 };

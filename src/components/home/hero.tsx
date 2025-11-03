@@ -51,7 +51,7 @@ const HeroSection = () => {
             className="relative flex items-center justify-center gap-4 w-48 h-12 md:w-60 md:h-16 mt-16 lg:mt-0 bg-linear-to-r from-rose-900 to-gray-900 text-white font-medium cursor-pointer active:scale-95 rounded-full shadow-md transition-all duration-300 overflow-hidden group"
           >
             <span className="relative z-10 text-base md:text-xl">
-              Try Sommaire
+              Try Now
             </span>
 
             <MdKeyboardDoubleArrowRight className="relative z-10 text-2xl transition-transform text-white duration-300 group-hover:translate-x-2 animate-pulse" />
@@ -65,7 +65,7 @@ const HeroSection = () => {
           <SignInButton>
             <div className="relative flex items-center justify-center w-48 h-12 md:w-60 md:h-16 mt-16 lg:mt-0 bg-linear-to-r from-rose-900 to-gray-900 text-white font-medium cursor-pointer hover:scale-105 rounded-full shadow-md transition-all duration-300 overflow-hidden group">
               <span className="relative z-10 text-base md:text-xl">
-                Try Sommaire
+                Try Now
               </span>
               <MdKeyboardDoubleArrowRight className="relative z-10 text-2xl transition-transform text-white duration-300 group-hover:translate-x-2 animate-pulse" />
               {/* gradient overlay on hover */}

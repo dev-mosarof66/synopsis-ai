@@ -15,7 +15,7 @@ const plans: Plan[] = [
     tagline: "Perfect for occasional use",
     price: 9,
     features: [
-      "Upload up to 3 PDFs per month",
+      "Upload up to 60 PDFs per month",
       "AI-powered summaries",
       "Basic text extraction",
       "Email support",
