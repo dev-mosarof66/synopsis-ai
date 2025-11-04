@@ -39,14 +39,14 @@ const Pricing = () => {
   return (
     <section
       id="pricing"
-      className="w-full min-h-screen flex flex-col items-center gap-6 py-20 sm:py-12 bg-white relative z-40"
+      className="w-full min-h-screen flex flex-col items-center gap-6 py-20 sm:py-12 bg-white relative z-40 px-2"
     >
       <h3 className="uppercase font-semibold text-rose-500 text-lg sm:text-xl tracking-wide relative">
         Pricing
         <span className="w-16 h-[2.5px] bg-rose-600 absolute bottom-0 left-0" />
       </h3>
 
-      <div className="w-full max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2  gap-8 mt-12 px-4 sm:px-0">
+      <div className="w-full max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2  gap-2 md:gap-8 mt-12 px-4 sm:px-0">
         {plans.map((plan) => (
           <PricingCard key={plan.id} {...plan} />
         ))}

@@ -5,6 +5,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
 import { Toaster } from "react-hot-toast";
+import StoreProvider from "@/utils/StoreProvider";
+import GetUserData from "@/utils/get-user";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -19,7 +21,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Sommaire",
+  title: "synopsis.ai - AI powered video and pdf summarizer",
   description:
     "This platform converts the uploaded video or pdf into a short summary like reels.",
 };
@@ -30,17 +32,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${roboto.variable} ${geist.variable} antialiased w-full min-h-screen flex flex-col`}
-        >
-          <Navbar />
-          <main className="flex-1 w-full">{children}</main>
-          <Footer />
-          <Toaster position="bottom-right" />
-        </body>
-      </html>
-    </ClerkProvider>
+    <StoreProvider>
+      <ClerkProvider>
+        <GetUserData>
+          <html lang="en">
+            <body
+              className={`${roboto.variable} ${geist.variable} antialiased w-full min-h-screen flex flex-col`}
+            >
+              <Navbar />
+              <main className="flex-1 w-full">{children}</main>
+              <Footer />
+              <Toaster position="bottom-right" />
+            </body>
+          </html>
+        </GetUserData>
+      </ClerkProvider>
+    </StoreProvider>
   );
 }

@@ -1,5 +1,6 @@
 import { Pizza } from "lucide-react";
-import SlideDemo from '@/components/home/slide-demo'
+import SummaryPDF from "../common/summary-pdf";
+import { mockData } from "../../../public/data";
 
 const UserDemo = () => {
   return (
@@ -26,7 +27,7 @@ const UserDemo = () => {
       </div>
       {/* demo  */}
       <div className="w-full max-w-xl flex items-center justify-center mx-auto px-6 my-10 z-40">
-        <SlideDemo />
+        <SummaryPDF data={mockData.summaries} />
       </div>
     </section>
   );

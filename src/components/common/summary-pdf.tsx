@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { mockData } from "../../../public/data";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -14,11 +13,13 @@ import ReactMarkDown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
+import {SummaryData} from '@/features/summary';
 
-function CarouselDApiDemo() {
+
+function SummaryPDF({ data }: {data: SummaryData[]}) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
-  const len = mockData.content.length;
+  const len = data?.length;
 
   React.useEffect(() => {
     if (!api) {
@@ -33,10 +34,10 @@ function CarouselDApiDemo() {
   }, [api]);
 
   return (
-    <div className="w-full relative">
+    <div className="w-full max-w-xl mx-auto flex flex-col gap-6 relative bg-white rounded-xl shadow-lg shadow-gray-700">
       <Carousel
         setApi={setApi}
-        className="w-full shadow-md shadow-gray-700 rounded-lg"
+        className="w-full overflow-x-hidden"
       >
         <div
           className={`${
@@ -55,9 +56,9 @@ function CarouselDApiDemo() {
             </div>
           ))}
         </div>
-        <CarouselContent>
+        <CarouselContent className="rounded-lg">
           {len > 0 &&
-            mockData.content.map((point, index) => (
+            data.map((point, index) => (
               <CarouselCard
                 key={index}
                 title={point.title}
@@ -66,7 +67,7 @@ function CarouselDApiDemo() {
             ))}
         </CarouselContent>
         {/* navigation  */}
-        <div className="w-full flex items-center justify-between px-4 absolute bottom-1 z-40 left-0 right-0 bg-white py-1 rounded-md">
+        <div className="w-full flex items-center justify-between px-4 absolute bottom-1 z-40 left-0 right-0 bg-white py-1 rounded-b-sm">
           <CarouselPrevious />
           <div className="flex items-center justify-center gap-2">
             {Array.from({ length: len }).map((_, index) => (
@@ -97,7 +98,7 @@ function CarouselCard({
     <CarouselItem>
       <Card className="w-full h-full">
         <CardContent className="w-full flex flex-col items-center p-2 sm:p-6 overflow-y-scroll h-[450px] scrollbar-hidden pb-8">
-          <h4 className="text-lg text-center sm:text-xl xl:text-2xl font-semibold mb-4 text-gray-800">
+          <h4 className="w-full max-w-md text-lg text-center sm:text-xl  font-semibold mb-4 text-red-800">
             {title}
           </h4>
           <div className="w-full grid grid-cols-1 gap-4">
@@ -121,4 +122,4 @@ function CarouselCard({
   );
 }
 
-export default CarouselDApiDemo;
+export default SummaryPDF;
