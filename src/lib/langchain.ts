@@ -20,3 +20,12 @@ export const convertPDFToText = async (pdfUrl: string) => {
     }
 }
 
+
+export const jsonParser = (response: string): string => {
+    return response
+        .replace(/```json/g, "") // remove ```json
+        .replace(/```/g, "")     // remove closing ```
+        .trim();
+}
+
+
