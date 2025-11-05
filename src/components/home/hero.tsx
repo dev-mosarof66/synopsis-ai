@@ -4,10 +4,11 @@ import { LuSparkles } from "react-icons/lu";
 import Link from "next/link";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { SignedOut, SignedIn, SignInButton } from "@clerk/nextjs";
+import Banner from "./Banner";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen flex-1 flex flex-col pt-32 relative z-40">
+    <section className="w-full min-h-screen flex-1 flex flex-col pt-20 relative z-40">
       {/* gradient background  */}
       <div>
         <div
@@ -21,6 +22,7 @@ const HeroSection = () => {
       </div>
       {/* content  */}
       <div className="w-full flex flex-col justify-center items-center gap-6 relative z-40">
+        <Banner />
         <Badge
           variant={"secondary"}
           className="border-2 border-rose-600 p-2 px-4"
@@ -50,9 +52,7 @@ const HeroSection = () => {
             href="/upload"
             className="relative flex items-center justify-center gap-4 w-48 h-12 md:w-60 md:h-16 mt-16 lg:mt-0 bg-linear-to-r from-rose-900 to-gray-900 text-white font-medium cursor-pointer active:scale-95 rounded-full shadow-md transition-all duration-300 overflow-hidden group"
           >
-            <span className="relative z-10 text-base md:text-xl">
-              Try Now
-            </span>
+            <span className="relative z-10 text-base md:text-xl">Try Now</span>
 
             <MdKeyboardDoubleArrowRight className="relative z-10 text-2xl transition-transform text-white duration-300 group-hover:translate-x-2 animate-pulse" />
 

@@ -4,9 +4,10 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
-import { Toaster } from "react-hot-toast";
 import StoreProvider from "@/utils/StoreProvider";
 import GetUserData from "@/utils/get-user";
+import { Toaster } from "@/components/ui/sonner"
+
 
 const roboto = Roboto({
   variable: "--font-roboto",

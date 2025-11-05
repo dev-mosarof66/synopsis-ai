@@ -1,21 +1,45 @@
 "use client";
 import SummaryPDF from "@/components/common/summary-pdf";
 import { FaDownload, FaUpload } from "react-icons/fa";
-import { useAppSelector } from "@/app/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { FileText } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { setSummary } from "@/features/summary";
+import { Spinner } from "@/components/ui/spinner";
 
 const YourSummary = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
+  const params = useParams();
   const { pdfSummary } = useAppSelector((state) => state.summary);
+  const [loading, setLoading] = useState(true);
   console.log("summary from redux store : ", pdfSummary);
 
-  if (pdfSummary?.summaries?.length === 0 || !pdfSummary) {
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const res = await axios.get(`/api/summary/${params.id}`);
+        console.log(res.data);
+        if (res.data.success) {
+          dispatch(setSummary(res.data.summary));
+        }
+      } catch (error) {
+        console.log("error while fetching indivisual summary : ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSummary();
+  }, [params.id, dispatch]);
+
+  if ((pdfSummary?.summaries?.length === 0 || !pdfSummary) && !loading) {
     return (
       <div className="w-full h-[90vh] max-w-xl mx-auto flex flex-col items-center justify-center gap-4 py-10">
         <FileText className="w-12 h-12 text-red-400 animate-bounce" />
         <p className="text-center text-gray-500 text-lg">
-          No summary available.
+          No summary found.
         </p>
         <button
           onClick={() => router.push("/upload")}
@@ -27,6 +51,15 @@ const YourSummary = () => {
       </div>
     );
   }
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <section className="w-full min-h-screen flex flex-col py-20 px-2 bg-linear-to-br from-white to-gray-100">
       <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center gap-8">
@@ -34,15 +67,17 @@ const YourSummary = () => {
 
         <SummaryPDF data={pdfSummary?.summaries ?? []} />
 
-        <div className="w-full flex flex-col gap-2 items-center py-6">
-          <p className="text-sm sm:text-lg text-center text-gray-600">
-            You can download your PDF by clicking the button
-          </p>
-          <button className="w-48 px-4 py-2 bg-rose-600 text-white rounded-md hover:bg-rose-700 active:scale-95 transition-all duration-300 delay-75">
-            <FaDownload className="inline mr-2 animate-bounce" />
-            Download PDF
-          </button>
-        </div>
+        {process.env.NODE_ENV !== "development" && (
+          <div className="w-full flex flex-col gap-2 items-center py-6">
+            <p className="text-sm sm:text-lg text-center text-gray-600">
+              You can download your PDF by clicking the button
+            </p>
+            <button className="w-48 px-4 py-2 bg-rose-600 text-white rounded-md hover:bg-rose-700 active:scale-95 transition-all duration-300 delay-75">
+              <FaDownload className="inline mr-2 animate-bounce" />
+              Download PDF
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

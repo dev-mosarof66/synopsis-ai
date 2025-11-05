@@ -31,8 +31,9 @@ const YourSummaries = () => {
             >
               <div className="flex flex-col gap-4">
                 <div className="w-full flex items-center gap-2">
-                  <FileText className="text-rose-600" size={30}  />
-                  <h3 className="font-semibold text-2xl sm:text-3xl">{summary.title}</h3>
+                  <FileText className="text-rose-600 sm:hidden" size={24}  />
+                  <FileText className="text-rose-600 hidden sm:block" size={30}  />
+                  <h3 className="font-semibold text-xl sm:text-2xl lg:text-3xl">{summary.title}</h3>
                 </div>
                 <p className="text-sm text-gray-500 line-clamp-3">
                   {summary.summaries[0]?.description[0]}
