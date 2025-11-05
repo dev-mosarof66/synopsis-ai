@@ -30,7 +30,7 @@ const responseSchema = new Schema<IResponse>(
   { timestamps: true }
 );
 
-const ResponseModel: Model<IResponse> =
+const Response: Model<IResponse> =
   mongoose.models.Response || mongoose.model<IResponse>("Response", responseSchema);
 
-export default ResponseModel;
+export default Response;

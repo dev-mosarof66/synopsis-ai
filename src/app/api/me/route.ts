@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from 'next/server'
 import { connectDB } from '@/db/db'
 import User from '@/models/user.model'
+import '@/models/response.model'
+
+await connectDB();
 
 export async function POST(req: NextRequest) {
   try {
-    await connectDB();
 
     const { email } = await req.json();
     console.log('received email : ', email);
