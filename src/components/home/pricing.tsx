@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 type Plan = {
   id: number;
@@ -39,7 +40,7 @@ const Pricing = () => {
   return (
     <section
       id="pricing"
-      className="w-full min-h-screen flex flex-col items-center gap-6 py-20 sm:py-12 bg-white relative z-40 px-2"
+      className="w-full min-h-screen flex flex-col items-center gap-6 py-20 sm:py-12 relative z-40 px-2 border rounded-md"
     >
       <h3 className="uppercase font-semibold text-rose-500 text-lg sm:text-xl tracking-wide relative">
         Pricing
@@ -50,6 +51,16 @@ const Pricing = () => {
         {plans.map((plan) => (
           <PricingCard key={plan.id} {...plan} />
         ))}
+      </div>
+
+      {/* wrapper till complete it  */}
+      <div className="w-full h-full absolute top-0 left-0 backdrop-blur-[2px]" />
+
+      {/* upcoming  */}
+      <div className="absolute top-5 right-10 text-2xl sm:text-4xl">
+        <Badge variant="destructive">
+          <p>Upcoming</p>
+        </Badge>
       </div>
     </section>
   );
@@ -86,7 +97,7 @@ const PricingCard = ({ name, tagline, price, features }: Plan) => {
             : "bg-rose-500 hover:bg-rose-600"
         } active:scale-95`}
       >
-        <span>{isPro ? "Go Pro":"Buy Now"}</span>
+        <span>{isPro ? "Go Pro" : "Buy Now"}</span>
         <ArrowRight className="w-4 h-4" />
       </button>
     </div>

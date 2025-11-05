@@ -1,6 +1,14 @@
 "use client";
 import Link from "next/link";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import { PiSignInBold } from "react-icons/pi";
+import { AiFillFire } from "react-icons/ai";
+import ToolTip from "./tooltip";
 
 const Navbar = () => {
   return (
@@ -19,14 +27,25 @@ const Navbar = () => {
 
         <SignedOut>
           <SignInButton>
-            <button className="w-fit px-4  py-2 text-xs sm:text-sm bg-rose-900 rounded-md text-white cursor-pointer hover:bg-rose-950 active:scale-95 transition-all duration-300 delay-75">
-              Sign In
+            <button className="w-fit px-4  py-2 text-xs sm:text-sm bg-rose-900 rounded-md font-semibold text-white cursor-pointer hover:bg-rose-950 active:scale-95 transition-all duration-300 delay-75">
+              <PiSignInBold size={18} className="inline-block items-center mr-2" />
+              <span className="hidden sm:inline-block">Sign In</span>
             </button>
           </SignInButton>
         </SignedOut>
 
         <SignedIn>
-          <UserButton />
+          <div className="flex items-center gap-4">
+            <ToolTip tooltip="Your Summaries">
+              <Link
+                href="/your-summaries"
+                className="text-sm sm:text-base font-semibold cursor-pointer text-rose-600 hover:text-rose-700 active:scale-95 transition-all duration-300 delay-75"
+              >
+                <AiFillFire className="text-2xl sm:text-3xl" />
+              </Link>
+            </ToolTip>
+            <UserButton />
+          </div>
         </SignedIn>
       </div>
     </nav>

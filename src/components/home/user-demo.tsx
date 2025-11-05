@@ -21,12 +21,12 @@ const UserDemo = () => {
         <div className="inline-flex p-2 rounded-xl text-rose-700 border-2 border-rose-600 bg-rose-500/20 hover:bg-rose-500/30 cursor-text transition-all duration-300 delay-0">
           <Pizza />
         </div>
-        <p className="w-full max-w-xl text-center text-xl  lg:text-2xl xl:text-3xl font-semibold">
+        <p className="w-full max-w-xl text-center text-xl  lg:text-2xl xl:text-3xl font-semibold px-4">
           Preview of how <span className="font-black text-rose-800">synopsis</span> transforms your PDFs into concise summaries
         </p>
       </div>
       {/* demo  */}
-      <div className="w-full max-w-xl flex items-center justify-center mx-auto px-6 my-10 z-40">
+      <div className="w-full max-w-xl flex items-center justify-center mx-auto px-2 my-10 z-40">
         <SummaryPDF data={mockData.summaries} />
       </div>
     </section>

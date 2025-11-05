@@ -4,7 +4,7 @@ import User from '@/models/user.model'
 
 export async function POST(req: NextRequest) {
   try {
-    await connectDB(); // ✅ Call INSIDE handler
+    await connectDB();
 
     const { email } = await req.json();
     console.log('received email : ', email);
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    const user = await User.findOne({ email }).populate("summaries"); // ✅ "Response" is already imported
+    const user = await User.findOne({ email }).populate("summaries"); 
 
 
     return NextResponse.json({
