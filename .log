@@ -1,2 +1,1 @@
-=> after upload, need to show response from gemini ai in your summaries/:id page
-=> need to parse text from pdf and send to gemini..
+=> need to work with delete functionality on summary list --> summary card
