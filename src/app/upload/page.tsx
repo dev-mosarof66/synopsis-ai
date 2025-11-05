@@ -1,6 +1,7 @@
 "use client";
 import { useState, ChangeEvent, useEffect } from "react";
-import { toast } from "react-hot-toast";
+import { toast as HotToast } from "react-hot-toast";
+import { toast } from "sonner";
 import UploadPDF from "@/components/upload/upload-pdf";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -74,7 +75,7 @@ const UploadPDFPage = () => {
   useEffect(() => {
     let toastId: string;
     if (loading) {
-      toastId = toast.loading("Generating summary, please wait...");
+      toastId = HotToast.loading("Generating summary, please wait...");
     }
     if (!loading && response) {
       toast.success("Summary generated successfully.");

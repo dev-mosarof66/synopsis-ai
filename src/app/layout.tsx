@@ -7,6 +7,7 @@ import Footer from "@/components/common/footer";
 import StoreProvider from "@/utils/StoreProvider";
 import GetUserData from "@/utils/get-user";
 import { Toaster } from "@/components/ui/sonner"
+import { Toaster as HotToaster } from "react-hot-toast"
 
 
 const roboto = Roboto({
@@ -44,6 +45,7 @@ export default function RootLayout({
               <main className="flex-1 w-full">{children}</main>
               <Footer />
               <Toaster position="bottom-right" />
+              <HotToaster position="bottom-right" />
             </body>
           </html>
         </GetUserData>

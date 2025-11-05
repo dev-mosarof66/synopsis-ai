@@ -51,7 +51,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="w-full border-t border-gray-200 text-center py-4 text-sm text-gray-600">
-        © {new Date().getFullYear()} Sommaire. All rights reserved.
+        © {new Date().getFullYear()} <span className="font-semibold text-rose-700">synopsis.ai</span>. All rights reserved.
       </div>
     </footer>
   );

@@ -10,6 +10,7 @@ import { setSummary } from "@/features/summary";
 import { Spinner } from "@/components/ui/spinner";
 
 const YourSummary = () => {
+  const isDevelopmentMode = true;
   const dispatch = useAppDispatch();
   const router = useRouter();
   const params = useParams();
@@ -38,9 +39,7 @@ const YourSummary = () => {
     return (
       <div className="w-full h-[90vh] max-w-xl mx-auto flex flex-col items-center justify-center gap-4 py-10">
         <FileText className="w-12 h-12 text-red-400 animate-bounce" />
-        <p className="text-center text-gray-500 text-lg">
-          No summary found.
-        </p>
+        <p className="text-center text-gray-500 text-lg">No summary found.</p>
         <button
           onClick={() => router.push("/upload")}
           className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 active:scale-95 transition-all duration-300 delay-75"
@@ -67,7 +66,7 @@ const YourSummary = () => {
 
         <SummaryPDF data={pdfSummary?.summaries ?? []} />
 
-        {process.env.NODE_ENV !== "development" && (
+        {!isDevelopmentMode && (
           <div className="w-full flex flex-col gap-2 items-center py-6">
             <p className="text-sm sm:text-lg text-center text-gray-600">
               You can download your PDF by clicking the button
