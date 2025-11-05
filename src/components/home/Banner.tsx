@@ -9,7 +9,7 @@ const Banner = () => {
   if (process.env.NODE_ENV !== "development") return null; // No banner in production
 
   return (
-    <div className="w-full max-w-4xl mx-auto flex flex-col gap-3 rounded-md border-l-4 border-red-500 bg-yellow-50 p-4 text-yellow-800 shadow shadow-black/50">
+    <div className="w-[95%] max-w-4xl mx-auto flex flex-col gap-2 rounded-md border-l-4 border-red-500 bg-yellow-50 p-4 text-yellow-800 shadow shadow-black/50">
       <p className="font-semibold">⚠️ Developer Mode Active</p>
       <p>
         You are currently using the development version of this product. Some features may be limited.

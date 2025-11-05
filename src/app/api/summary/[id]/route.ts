@@ -1,10 +1,9 @@
 //api/summary/[id]/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import Response from "@/models/response.model";
 
 
-export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
+export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
     try {
         const { id } = await params;
         console.log('params from summary : ', id)
