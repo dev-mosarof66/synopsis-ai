@@ -23,7 +23,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "synopsis.ai - AI powered video and pdf summarizer",
+  title: "synopsis.ai - AI powered PDF summarizer",
   description:
     "This platform converts the uploaded video or pdf into a short summary like reels.",
 };

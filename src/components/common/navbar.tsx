@@ -7,7 +7,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { PiSignInBold } from "react-icons/pi";
-import { AiFillFire } from "react-icons/ai";
+import { FaFire } from "react-icons/fa";
 import ToolTip from "./tooltip";
 
 const Navbar = () => {
@@ -39,9 +39,9 @@ const Navbar = () => {
             <ToolTip tooltip="Your Summaries">
               <Link
                 href="/your-summaries"
-                className="text-sm sm:text-base font-semibold cursor-pointer text-rose-600 hover:text-rose-700 active:scale-95 transition-all duration-300 delay-75"
+                className="text-sm sm:text-base font-semibold cursor-pointer text-amber-600 hover:text-rose-700 active:scale-95 transition-all duration-300 delay-75"
               >
-                <AiFillFire className="text-2xl sm:text-3xl" />
+                <FaFire className="text-2xl" />
               </Link>
             </ToolTip>
             <UserButton />

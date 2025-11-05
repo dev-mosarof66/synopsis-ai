@@ -20,14 +20,3 @@ export const convertPDFToText = async (pdfUrl: string) => {
     }
 }
 
-export const jsonParser = (response: string) => {
-    try {
-        return response
-            .replace(/```json/g, "") 
-            .replace(/```/g, "")    
-            .trim();
-    } catch (error) {
-        console.log('error while parsing json : ', error);
-        throw new Error('Could not parse JSON response');
-    }
-}
