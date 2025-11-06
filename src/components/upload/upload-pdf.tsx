@@ -4,25 +4,15 @@ import { FaFilePdf } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { HiUpload } from "react-icons/hi";
 import { Loader } from "../ui/spinner";
-import { useAppSelector } from "@/app/hooks";
-import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
   file: File | null;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   getSummary: () => void;
   loading: boolean;
-  freeQoutaBanner?: boolean;
 };
 
-const UploadPDF = ({
-  file,
-  handleFileChange,
-  getSummary,
-  loading,
-  freeQoutaBanner,
-}: Props) => {
-  const { user } = useAppSelector((state) => state.user);
+const UploadPDF = ({ file, handleFileChange, getSummary, loading }: Props) => {
 
   return (
     <div className="w-full flex flex-col items-center gap-6">
@@ -39,23 +29,7 @@ const UploadPDF = ({
 
       {/* free Qouta Banner */}
 
-      {user ? (
-        <div>
-          {freeQoutaBanner && (
-            <div>
-              <p className="w-full max-w-lg text-sm text-center text-yellow-800 bg-yellow-200 px-4 py-2 rounded-md border border-yellow-300">
-                You are on a free plan and you have 1 quota remaining. Upgrade
-                plan for unlimited PDF summaries and additional features.
-              </p>
-            </div>
-          )}
-        </div>
-      ) : (
-        <div className="w-full max-w-lg h-16 border border-amber-300 rounded-md">
-          <Skeleton className="w-full h-full bg-amber-500/20" />
-        </div>
-      )}
-
+   
       {/* Upload box */}
       <div
         className={`relative w-full sm:w-[80%] md:w-[600px] h-64 border-2 border-dashed border-rose-400 rounded-xl flex flex-col items-center justify-center ${

@@ -8,24 +8,39 @@ export interface ISummary {
 export interface IResponse extends Document {
   _id: mongoose.Types.ObjectId;
   title: string;
+  description: string;
   summaries: ISummary[];
   fileId: string;
   url: string;
+  originalName: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const responseSchema = new Schema<IResponse>(
   {
-    title: { type: String, required: true },
+    title: {
+      type: String, required: true
+    },
+    description: {
+      type: String,
+      required: true,
+    },
     summaries: [
       {
         title: { type: String, required: true },
         description: [{ type: String, required: true }],
       },
     ],
-    fileId: { type: String, required: true },
-    url: { type: String, required: true },
+    fileId: {
+      type: String, required: true
+    },
+    url: {
+      type: String, required: true
+    },
+    originalName: {
+      type: String, required: true
+    },
   },
   { timestamps: true }
 );

@@ -18,14 +18,29 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    const user = await User.findOne({ email }).populate("summaries"); 
+    const user = await User.findOne({ email }).populate('summaries')
+
+
+    if (!user) {
+      return NextResponse.json({
+        success: false,
+        message: 'No user found.'
+      }, { status: 400 });
+    }
 
 
     return NextResponse.json({
       success: true,
       message: "User fetched successfully.",
-      user
-    }, { status: 200 });
+      user: {
+        _id: user._id,
+        email: user.email,
+        freeLimit: user.freeLimit,
+        currentPlan: user.currentPlan,
+        createdAt: user.createdAt,
+        summaries: user.summaries
+      }
+    }, { status: 201 });
   } catch (error) {
     console.log("error in fetching user : ", error);
     return NextResponse.json({

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "@/features/user"; 
+import responseReducer from "@/features/response"; 
 import summaryReducer from "@/features/summary"; 
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    summary: summaryReducer, 
+    response: responseReducer,
+    summary: summaryReducer
   },
 });
 

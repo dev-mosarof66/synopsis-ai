@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SummaryItem } from "./summary";
-
+import { ResponseItem } from "./response";
 
 
 export type userProps = {
-    emall: string | null;
-    isNewUser: boolean;
-    summaries: SummaryItem[] | [] ;
+    _id: string;
+    emall: string;
+    summaries: ResponseItem[];
+    freeLimit: number;
     currentPlan: string;
-
+    createdAt: string;
 };
 
 
@@ -17,7 +17,7 @@ type userState = {
 };
 
 const initialState: userState = {
-    user:  null,
+    user: null,
 };
 
 const userSlice = createSlice({
@@ -25,7 +25,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser(state, action) {
-           state.user = action.payload;
+            state.user = action.payload;
         },
     },
 });

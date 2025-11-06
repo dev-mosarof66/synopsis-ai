@@ -1,39 +1,35 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from "@reduxjs/toolkit";
+import { SummaryData } from "./response";
 
 
-export type SummaryData = {
-  title: string;
-  description: string[];
-};
 
-export type SummaryItem = {
-  _id: string;
-  fileId: string;
-  url: string;
-  summaries: SummaryData[];
+export type SummaryProps = {
+    _id: string;
+    fileId: string;
+    originalFileName: string;
+    title: string;
+    description: string;
+    url: string;
+    summaries: SummaryData[];
 };
 
 type SummaryState = {
-  pdfSummary: SummaryItem | null;
+    summaries: SummaryProps[] | [];
 };
 
 const initialState: SummaryState = {
-  pdfSummary: null,
-};
+    summaries: []
+}
 
 const summarySlice = createSlice({
-  name: "summary",
-  initialState,
-  reducers: {
-    setSummary: (
-      state,
-      action: any
-    ) => {
-      state.pdfSummary = action.payload;
-    },
-  },
-});
+    name: "summary",
+    initialState,
+    reducers: {
+        setSummary: (state, action) => {
+            state.summaries = action.payload
+        }
+    }
+})
 
 export const { setSummary } = summarySlice.actions;
-export default summarySlice.reducer;
+export default summarySlice.reducer

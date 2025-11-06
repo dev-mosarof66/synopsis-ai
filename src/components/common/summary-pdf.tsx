@@ -13,10 +13,15 @@ import ReactMarkDown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
-import {SummaryData} from '@/features/summary';
+
+type summaryProps = {
+  title: string;
+  description: string[];
+};
 
 
-function SummaryPDF({ data }: {data: SummaryData[]}) {
+
+function SummaryPDF({ data }: { data: summaryProps[] }) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const len = data?.length;
@@ -35,10 +40,7 @@ function SummaryPDF({ data }: {data: SummaryData[]}) {
 
   return (
     <div className="w-full max-w-xl mx-auto flex flex-col gap-6 relative bg-white rounded-xl shadow-lg shadow-gray-700">
-      <Carousel
-        setApi={setApi}
-        className="w-full overflow-x-hidden"
-      >
+      <Carousel setApi={setApi} className="w-full overflow-x-hidden">
         <div
           className={`${
             len > 8

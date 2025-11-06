@@ -5,17 +5,28 @@ export interface IUser extends Document {
   email: string;
   currentPlan: string;
   summaries: mongoose.Types.ObjectId[];
-  isNewUser: boolean;
+  freeLimit: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const userSchema = new Schema<IUser>(
   {
-    email: { type: String, required: true, unique: true },
-    currentPlan: { type: String, default: "Free" },
-    isNewUser: { type: Boolean, default: true },
-    summaries: [{ type: mongoose.Schema.Types.ObjectId, ref: "Response" }],
+    email: {
+      type: String, required: true, unique: true
+    },
+    currentPlan: {
+      type: String, default: "Free"
+    },
+    freeLimit: {
+      type: Number,
+      default: 4
+    },
+    summaries: [
+      {
+        type: mongoose.Schema.Types.ObjectId, ref: "Response"
+      }
+    ],
   },
   { timestamps: true }
 );

@@ -43,13 +43,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Error generating summary." }, { status: 500 });
     }
 
-    // Save Response
-    const response = await Response.create({
+    console.log(aiResponse)
+    const response = new Response({
       title: aiResponse.title,
+      description: aiResponse.description,
       summaries: aiResponse.summaries,
       fileId: upload.fileId,
       url: upload.url,
-    });
+      originalName: file.name
+    })
 
     // Find or create user
     let user = await User.findOne({ email });
@@ -57,12 +59,13 @@ export async function POST(req: NextRequest) {
     if (user) {
       user.summaries = user.summaries || [];
       user.summaries.push(response?._id);
-      user.isNewUser = false;
+      user.freeLimit = Math.max(0, user.freeLimit - 1);
     } else {
-      user = new User({ email, summaries: [response._id], isNewUser: false });
+      user = new User({ email, summaries: [response._id] });
     }
 
-    await user.save({ validateBeforeSave: false });
+    await response.save();
+    await user.save();
 
     return NextResponse.json({
       success: true,

@@ -31,11 +31,15 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: 
     }
 }
 
+
+
 export const DELETE = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
     try {
         const { id } = await params;
 
         const summary = await Response.findById(id)
+
+        console.log(id, summary)
 
         if (!summary) {
             return NextResponse.json({

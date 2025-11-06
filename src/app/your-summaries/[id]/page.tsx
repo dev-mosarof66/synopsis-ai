@@ -1,30 +1,44 @@
 "use client";
 import SummaryPDF from "@/components/common/summary-pdf";
 import { FaDownload, FaUpload } from "react-icons/fa";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { FileText } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { setSummary } from "@/features/summary";
 import { Spinner } from "@/components/ui/spinner";
+import SummaryHeader from "@/components/summary/summary-header";
+
+export type summaryProps = {
+  title: string;
+  description: string[];
+};
+
+export type responseProp = {
+  _id: string;
+  title: string;
+  description: string;
+  summaries: summaryProps[];
+  fileId: string;
+  url: string;
+  originalName: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 const YourSummary = () => {
   const isDevelopmentMode = true;
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const params = useParams();
-  const { pdfSummary } = useAppSelector((state) => state.summary);
   const [loading, setLoading] = useState(true);
-  console.log("summary from redux store : ", pdfSummary);
+  const [response, setResponse] = useState<responseProp | null>(null);
 
   useEffect(() => {
     const fetchSummary = async () => {
       try {
         const res = await axios.get(`/api/summary/${params.id}`);
-        console.log(res.data);
+        console.log("response in individual summary : ", res.data);
         if (res.data.success) {
-          dispatch(setSummary(res.data.summary));
+          setResponse(res.data.summary);
         }
       } catch (error) {
         console.log("error while fetching indivisual summary : ", error);
@@ -33,9 +47,9 @@ const YourSummary = () => {
       }
     };
     fetchSummary();
-  }, [params.id, dispatch]);
+  }, [params.id]);
 
-  if ((pdfSummary?.summaries?.length === 0 || !pdfSummary) && !loading) {
+  if (!response && !loading) {
     return (
       <div className="w-full h-[90vh] max-w-xl mx-auto flex flex-col items-center justify-center gap-4 py-10">
         <FileText className="w-12 h-12 text-red-400 animate-bounce" />
@@ -62,9 +76,9 @@ const YourSummary = () => {
   return (
     <section className="w-full min-h-screen flex flex-col py-20 px-2 bg-linear-to-br from-white to-gray-100">
       <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center gap-8">
-        <h1 className="text-2xl font-bold text-center"> Your PDF Summary</h1>
+        <SummaryHeader response = {response ?? null} />
 
-        <SummaryPDF data={pdfSummary?.summaries ?? []} />
+        <SummaryPDF data={response?.summaries ?? []} />
 
         {!isDevelopmentMode && (
           <div className="w-full flex flex-col gap-2 items-center py-6">

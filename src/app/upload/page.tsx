@@ -1,13 +1,13 @@
 "use client";
 import { useState, ChangeEvent, useEffect } from "react";
-import { toast as HotToast } from "react-hot-toast";
 import { toast } from "sonner";
 import UploadPDF from "@/components/upload/upload-pdf";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { setSummary } from "@/features/summary";
+import { setResponse as setStoreResponse } from "@/features/response";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { useUser } from "@clerk/nextjs";
+import LimitBox from "@/components/upload/limit-box";
 
 const UploadPDFPage = () => {
   const router = useRouter();
@@ -15,12 +15,8 @@ const UploadPDFPage = () => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<boolean>(false);
-  const [freeQoutaBanner, setFreeQoutaBanner] = useState<boolean>(true);
   const loggedInUser = useUser();
-
   const { user } = useAppSelector((state) => state.user);
-
-  console.log("current user : ", user);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -40,7 +36,7 @@ const UploadPDFPage = () => {
   };
 
   const getSummary = async () => {
-    if (user && user?.isNewUser === false) {
+    if (user && user?.freeLimit === 0) {
       toast.error(
         "You have exhausted your free quota. Please upgrade your plan for more summaries."
       );
@@ -62,7 +58,7 @@ const UploadPDFPage = () => {
       console.log("inside upload client");
       const res = await axios.post("/api/gemini", formData);
       console.log("response from server : ", res.data);
-      dispatch(setSummary(res.data.response));
+      dispatch(setStoreResponse(res.data.response));
       setResponse(true);
       router.push(`/your-summaries/${res.data.response._id}`);
     } catch (error) {
@@ -73,36 +69,33 @@ const UploadPDFPage = () => {
   };
 
   useEffect(() => {
-    let toastId: string;
     if (loading) {
-      toastId = HotToast.loading("Generating summary, please wait...");
+      toast.loading("Generating summary, please wait...", {
+        duration: 5000,
+      });
     }
     if (!loading && response) {
       toast.success("Summary generated successfully.");
     }
-
-    return () => {
-      if (toastId) {
-        toast.dismiss(toastId);
-      }
-    };
   }, [loading, response]);
 
-  useEffect(() => {
-    if (user && user?.isNewUser === false) {
-      setFreeQoutaBanner(false);
-    }
-  }, [user]);
-
   return (
-    <section className="w-full min-h-[92vh] bg-linear-to-br from-white to-gray-100 py-14 sm:py-20 px-2">
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center pt-10 gap-8">
+    <section className="w-full min-h-screen bg-linear-to-br from-white to-gray-100 py-14 sm:py-20 px-2">
+      {/* LimitBox */}
+
+      {user && user?.currentPlan?.toLowerCase() !== "pro" && <LimitBox />}
+
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center gap-2 pt-16 md:py-0">
+        {!user && (
+          <span className="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-2 py-1 rounded-full">
+            As a free user, you have 5 quota to generate pdf summaries.
+          </span>
+        )}
         <UploadPDF
           file={file}
           handleFileChange={handleFileChange}
           getSummary={getSummary}
           loading={loading}
-          freeQoutaBanner={freeQoutaBanner}
         />
       </div>
     </section>

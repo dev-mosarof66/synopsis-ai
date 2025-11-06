@@ -17,7 +17,7 @@ const Header = () => {
       >
         <Link href={"/upload"} className="flex items-center">
           <FaPlus className="inline-block mr-2" />
-          New Summary
+          <span className="hidden sm:block">New Summary</span>
         </Link>
       </Button>
     </div>
