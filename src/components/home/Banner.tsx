@@ -5,7 +5,7 @@ const limitations = [
 ];
 
 const Banner = () => {
-  const isDevelopmentMode = true;
+  const isDevelopmentMode = false;
   if (!isDevelopmentMode) return null;
 
   return (

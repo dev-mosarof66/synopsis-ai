@@ -1,5 +1,5 @@
 "use client";
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent } from "react";
 import { toast } from "sonner";
 import UploadPDF from "@/components/upload/upload-pdf";
 import axios from "axios";
@@ -8,13 +8,14 @@ import { setResponse as setStoreResponse } from "@/features/response";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { useUser } from "@clerk/nextjs";
 import LimitBox from "@/components/upload/limit-box";
+import { setUser } from "@/features/user";
+import UploadLoader from "@/components/upload/upload-loader";
 
 const UploadPDFPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [response, setResponse] = useState<boolean>(false);
   const loggedInUser = useUser();
   const { user } = useAppSelector((state) => state.user);
 
@@ -59,7 +60,9 @@ const UploadPDFPage = () => {
       const res = await axios.post("/api/gemini", formData);
       console.log("response from server : ", res.data);
       dispatch(setStoreResponse(res.data.response));
-      setResponse(true);
+      dispatch(setUser(res.data.user));
+      toast.success("Summary generated successfully.");
+      setLoading(false);
       router.push(`/your-summaries/${res.data.response._id}`);
     } catch (error) {
       console.log("error while generating pdf summary  : ", error);
@@ -68,24 +71,13 @@ const UploadPDFPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (loading) {
-      toast.loading("Generating summary, please wait...", {
-        duration: 5000,
-      });
-    }
-    if (!loading && response) {
-      toast.success("Summary generated successfully.");
-    }
-  }, [loading, response]);
-
   return (
-    <section className="w-full min-h-screen bg-linear-to-br from-white to-gray-100 py-14 sm:py-20 px-2">
+    <section className="w-full min-h-screen bg-linear-to-br from-white to-gray-100 py-14 sm:py-20 px-2 relative">
       {/* LimitBox */}
 
       {user && user?.currentPlan?.toLowerCase() !== "pro" && <LimitBox />}
 
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center gap-2 pt-16 md:py-0">
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center gap-2 pt-24 md:py-0">
         {!user && (
           <span className="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-2 py-1 rounded-full">
             As a free user, you have 5 quota to generate pdf summaries.
@@ -97,6 +89,9 @@ const UploadPDFPage = () => {
           getSummary={getSummary}
           loading={loading}
         />
+      </div>
+      <div className=" fixed bottom-2 right-0 z-50">
+        {loading && <UploadLoader />}
       </div>
     </section>
   );

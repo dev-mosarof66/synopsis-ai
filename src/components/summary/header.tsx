@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <div className="w-full flex flex-row items-center justify-between">
+    <div className="w-full max-w-6xl mx-auto flex flex-row items-center justify-between">
       {/* left  */}
 
       <h2 className="text-lg sm:text-xl font-semibold px-2">Your Summaries</h2>

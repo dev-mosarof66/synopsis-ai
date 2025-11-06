@@ -73,6 +73,8 @@ const YourSummary = () => {
     );
   }
 
+  console.log(response)
+
   return (
     <section className="w-full min-h-screen flex flex-col py-20 px-2 bg-linear-to-br from-white to-gray-100">
       <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center gap-8">

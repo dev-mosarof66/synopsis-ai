@@ -6,7 +6,7 @@ const Banner = () => {
   const { user } = useAppSelector((state) => state.user);
   return (
     <div>
-      <div className="flex flex-col sm:flex-row items-center justify-between rounded-lg border border-rose-300 bg-rose-50 p-4 text-rose-800 shadow-sm gap-2">
+      <div className="w-full max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between rounded-lg border border-rose-300 bg-rose-50 p-4 text-rose-800 shadow-sm gap-2">
         <div className="w-full sm:w-fit flex flex-col items-center sm:items-start">
           <p className="text-sm font-medium">
             You have{" "}

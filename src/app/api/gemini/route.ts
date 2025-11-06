@@ -43,7 +43,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Error generating summary." }, { status: 500 });
     }
 
-    console.log(aiResponse)
+    console.log('aiResponse : ', aiResponse)
+
     const response = new Response({
       title: aiResponse.title,
       description: aiResponse.description,
@@ -52,6 +53,11 @@ export async function POST(req: NextRequest) {
       url: upload.url,
       originalName: file.name
     })
+
+
+    await response.save();
+
+    console.log('response saved in db : ', response)
 
     // Find or create user
     let user = await User.findOne({ email });
@@ -64,13 +70,13 @@ export async function POST(req: NextRequest) {
       user = new User({ email, summaries: [response._id] });
     }
 
-    await response.save();
     await user.save();
 
     return NextResponse.json({
       success: true,
       message: "Summary generated successfully.",
       response,
+      user
     }, { status: 201 });
 
   } catch (error) {

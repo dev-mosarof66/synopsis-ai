@@ -50,7 +50,9 @@ ${response.summaries.map((s) => `- ${s}`).join("\n")}
     <div className="w-full border-b pb-3 flex flex-col items-center gap-3">
       <div className="flex flex-col items-center sm:items-start gap-1">
         <p className="text-lg font-semibold text-center text-rose-500">
-          {response?.title}
+          {response && response?.title?.length > 50
+            ? response?.originalName
+            : response?.title}
         </p>
         {formattedDate && (
           <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-md w-fit">
