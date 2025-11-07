@@ -74,11 +74,14 @@ ${response.summaries.map((s) => `- ${s}`).join("\n")}
           </p>
           <p className="bg-purple-100 flex items-center text-rose-400 font-semibold text-xs  py-0.5 px-1 rounded-md">
             <FaClock size={14} className="inline-block mr-1" />
-            <span>1 min read</span>
+            <span>
+              {response.summaries.length > 4 ? response.summaries.length / 2 : response.summaries.length}{" "}
+              min read
+            </span>
           </p>
         </div>
         <div
-          onClick={() => router.back()}
+          onClick={() => router.push('/your-summaries')}
           className="flex items-center text-xs bg-purple-200 rounded-md p-1 cursor-pointer hover:bg-purple-300 active:scale-95 transition-all duration-300 delay-75"
         >
           <ChevronLeft size={16} />
