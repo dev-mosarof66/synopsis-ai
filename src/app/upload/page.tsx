@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState, ChangeEvent } from "react";
 import { toast } from "sonner";
@@ -7,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { setResponse as setStoreResponse } from "@/features/response";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { useUser } from "@clerk/nextjs";
-import LimitBox from "@/components/upload/limit-box";
 import { setUser } from "@/features/user";
 import UploadLoader from "@/components/upload/upload-loader";
 
@@ -22,8 +22,8 @@ const UploadPDFPage = () => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     console.log(selectedFile);
-    if (selectedFile && selectedFile.size > 12 * 1024 * 1024) {
-      toast.error("File must be less than 12MB");
+    if (selectedFile && selectedFile.size > 2 * 1024 * 1024) {
+      toast.error("File must be less than 2MB");
       return;
     }
     if (selectedFile && selectedFile.type !== "application/pdf") {
@@ -64,18 +64,23 @@ const UploadPDFPage = () => {
       toast.success("Summary generated successfully.");
       setLoading(false);
       router.push(`/your-summaries/${res.data.response._id}`);
-    } catch (error) {
+    } catch (error: any) {
       console.log("error while generating pdf summary  : ", error);
+      if (error.response.status === 400) {
+        toast.error(error?.response.data.message);
+      } else if (error.response.status === 500) {
+        router.push("/not-found");
+      } else if (error.response.status === 413) {
+        toast.error("File must be less than 2MB");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="w-full min-h-screen bg-linear-to-br from-white to-gray-100 py-14 sm:py-20 px-2 relative">
+    <section className="w-full min-h-screen flex items-center justify-center bg-linear-to-br from-white to-gray-100 px-2 relative">
       {/* LimitBox */}
-
-      {user && user?.currentPlan?.toLowerCase() !== "pro" && <LimitBox />}
 
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center gap-2 pt-24 md:py-0">
         {!user && (

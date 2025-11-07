@@ -51,7 +51,7 @@ const YourSummary = () => {
 
   if (!response && !loading) {
     return (
-      <div className="w-full h-[90vh] max-w-xl mx-auto flex flex-col items-center justify-center gap-4 py-10">
+      <div className="w-full min-h-screen max-w-xl mx-auto flex flex-col items-center justify-center gap-4 py-10">
         <FileText className="w-12 h-12 text-red-400 animate-bounce" />
         <p className="text-center text-gray-500 text-lg">No summary found.</p>
         <button
@@ -76,8 +76,8 @@ const YourSummary = () => {
   console.log(response)
 
   return (
-    <section className="w-full min-h-screen flex flex-col py-20 px-2 bg-linear-to-br from-white to-gray-100">
-      <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center gap-8">
+    <section className="w-full min-h-screen pt-20 flex flex-col items-baseline justify-center px-2 bg-linear-to-br from-white to-gray-100">
+      <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center">
         <SummaryHeader response = {response ?? null} />
 
         <SummaryPDF data={response?.summaries ?? []} />

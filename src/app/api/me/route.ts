@@ -23,9 +23,9 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       return NextResponse.json({
-        success: false,
+        success: true,
         message: 'No user found.'
-      }, { status: 400 });
+      }, { status: 201 });
     }
 
 

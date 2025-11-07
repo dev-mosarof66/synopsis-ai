@@ -8,7 +8,7 @@ import Banner from "./Banner";
 
 const HeroSection = () => {
   return (
-    <section className="w-full min-h-screen flex-1 flex flex-col pt-20 relative z-40">
+    <section className="w-full flex-1 flex flex-col  relative z-40">
       {/* gradient background  */}
       <div>
         <div
@@ -21,7 +21,7 @@ const HeroSection = () => {
         <div className="w-full h-full absolute z-30 top-0 left-0 backdrop-blur-3xl" />
       </div>
       {/* content  */}
-      <div className="w-full flex flex-col justify-center items-center gap-6 relative z-40">
+      <div className="w-full min-h-screen  flex flex-col  items-center justify-center   gap-6 relative z-40">
         <Banner />
         <Badge
           variant={"secondary"}
