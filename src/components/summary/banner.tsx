@@ -1,6 +1,6 @@
 "use client";
 import { useAppSelector } from "@/app/hooks";
-import { TbChevronsRight } from "react-icons/tb";
+// import { TbChevronsRight } from "react-icons/tb";
 
 const Banner = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -11,22 +11,22 @@ const Banner = () => {
           <p className="text-sm font-medium">
             You have{" "}
             <span className="font-bold text-rose-600">
-              {user ? user.freeLimit : 5}
+              {user ? user.dayLimit : 3}
             </span>{" "}
-            quota remaining.
+            request remaining today.
           </p>
-          <p className="text-xs text-rose-500">
+          {/* <p className="text-xs text-rose-500">
             Upgrade to unlock unlimited summaries.
-          </p>
+          </p> */}
         </div>
 
-        <button className="group flex items-center rounded-md bg-amber-500 px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-amber-600 transition">
+        {/* <button className="group flex items-center rounded-md bg-amber-500 px-3 py-1.5 text-sm font-semibold text-white shadow hover:bg-amber-600 transition">
           Upgrade to Pro
           <TbChevronsRight
             className="ml-2 text-red-800 transition group-hover:translate-x-1 animate-pulse"
             size={20}
           />
-        </button>
+        </button> */}
       </div>
     </div>
   );

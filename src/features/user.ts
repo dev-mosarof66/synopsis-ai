@@ -6,8 +6,7 @@ export type userProps = {
     _id: string;
     emall: string;
     summaries: ResponseItem[];
-    freeLimit: number;
-    currentPlan: string;
+    dayLimit: number;
     createdAt: string;
 };
 

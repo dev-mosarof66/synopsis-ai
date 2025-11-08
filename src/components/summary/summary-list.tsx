@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/app/hooks";
 import { FileText } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FaDownload } from "react-icons/fa";
@@ -13,6 +12,7 @@ import { toast } from "sonner";
 import { ResponseItem } from "@/features/response";
 import moment from "moment";
 import DeleteLoader from "./delete-loader";
+import { AiFillFileText } from "react-icons/ai";
 
 const SummaryList = ({
   summaries,
@@ -24,7 +24,6 @@ const SummaryList = ({
   summaryLoading: boolean;
 }) => {
   const router = useRouter();
-  const { user } = useAppSelector((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
 
   console.log(summaries);
@@ -48,8 +47,6 @@ const SummaryList = ({
     }
   };
 
-  const isPaidUser = user?.currentPlan.toLowerCase() !== "free";
-
   return (
     <div className="w-full max-w-6xl mx-auto">
       {!summaryLoading ? (
@@ -69,7 +66,6 @@ const SummaryList = ({
                 summary={summary}
                 setSummaries={setSummaries}
                 handleDelete={handleDelete}
-                isPaidUser={isPaidUser}
               />
             ))}
           </div>
@@ -84,32 +80,27 @@ const SummaryList = ({
   );
 };
 
-const SummaryCard = ({
-  summary,
-  isPaidUser = false,
-  handleDelete,
-  onDownload,
-}: any) => {
+const SummaryCard = ({ summary, handleDelete, onDownload }: any) => {
   const router = useRouter();
 
   return (
     <div className="group p-5 bg-white rounded-xl border hover:border-rose-300 shadow-sm hover:shadow-md transition duration-200">
       <div className="flex items-start justify-between">
-        <div className="flex items-center gap-2 w-[85%]">
-          <FileText className="text-rose-600" size={40} />
-
-          <div className="w-full">
-            <h3
+        <div className="flex flex-col gap-0.5 w-[85%]">
+          <div className="flex gap-1 w-full">
+            <div className="flex gap-1 w-6 h-6">
+              <AiFillFileText className="text-rose-600 w-full h-full" />
+            </div>
+            <p
               onClick={() => router.push(`/your-summaries/${summary._id}`)}
-              className="font-semibold text-lg leading-tight truncate cursor-pointer hover:text-rose-600 hover:underline"
+              className="flex-1 font-semibold text-lg truncate cursor-pointer hover:text-rose-600 hover:underline"
             >
               {summary.title}
-            </h3>
-
-            <p className="w-fit text-[9px] bg-purple-100 px-1 py-0.5 rounded-md border border-purple-400">
-              {moment(summary.createdAt).fromNow()}
             </p>
           </div>
+          <p className="w-fit text-[9px] bg-purple-100 px-1 py-0.5 rounded-md border border-purple-400">
+            {moment(summary.createdAt).fromNow()}
+          </p>
         </div>
 
         <Button
@@ -126,15 +117,13 @@ const SummaryCard = ({
         {summary.description}
       </p>
 
-      {isPaidUser && (
-        <Button
-          onClick={() => onDownload?.(summary._id)}
-          className="w-full mt-4 py-2.5 flex items-center justify-center gap-2 rounded-md bg-rose-600 text-white font-medium hover:bg-rose-700 active:scale-[0.98] transition"
-        >
-          <FaDownload size={14} />
-          Download
-        </Button>
-      )}
+      <Button
+        onClick={() => onDownload?.(summary._id)}
+        className="w-full mt-4 py-2.5 flex items-center justify-center gap-2 rounded-md bg-rose-600 text-white font-medium hover:bg-rose-700 active:scale-[0.98] transition"
+      >
+        <FaDownload size={14} />
+        Download
+      </Button>
     </div>
   );
 };

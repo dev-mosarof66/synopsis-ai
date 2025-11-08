@@ -37,10 +37,8 @@ const UploadPDFPage = () => {
   };
 
   const getSummary = async () => {
-    if (user && user?.freeLimit === 0) {
-      toast.error(
-        "You have exhausted your free quota. Please upgrade your plan for more summaries."
-      );
+    if (user && user?.dayLimit === 0) {
+      toast.error("You have exhausted your day limit.");
       return;
     }
     const formData = new FormData();
@@ -80,14 +78,11 @@ const UploadPDFPage = () => {
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center bg-linear-to-br from-white to-gray-100 px-2 relative">
-      {/* LimitBox */}
-
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center gap-2 pt-24 md:py-0">
-        {!user && (
-          <span className="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-2 py-1 rounded-full">
-            As a free user, you have 5 quota to generate pdf summaries.
-          </span>
-        )}
+        <span className="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-2 py-1 rounded-full">
+          You have {(user && user?.dayLimit) ?? "3"} request
+          {(user && user.dayLimit) || 3 > 1 ? "s" : ""} left today.
+        </span>
         <UploadPDF
           file={file}
           handleFileChange={handleFileChange}

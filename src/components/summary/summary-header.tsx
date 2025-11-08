@@ -1,8 +1,6 @@
 "use client";
-import { useAppSelector } from "@/app/hooks";
 import { responseProp } from "@/app/your-summaries/[id]/page";
 import Link from "next/link";
-import { toast } from "sonner";
 import {
   FaCalendar,
   FaClock,
@@ -14,18 +12,10 @@ import { useRouter } from "next/navigation";
 
 const SummaryHeader = ({ response }: { response: responseProp | null }) => {
   const router = useRouter();
-  const { user } = useAppSelector((state) => state.user);
-  const isPaidUser = user?.currentPlan?.toLowerCase() !== "free";
-
   console.log(response?.summaries.length);
 
   const downloadSummary = () => {
     if (!response) return;
-
-    if (!isPaidUser) {
-      toast.error("Please upgrade your plan to access this feature.");
-      return;
-    }
 
     const content = `
 Title: ${response.title}

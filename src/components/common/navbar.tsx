@@ -23,7 +23,7 @@ const Navbar = () => {
         <div>
           <Link
             href="/"
-            className="flex items-center gap-1 text-base font-semibold text-gray-900 hover:opacity-90 active:scale-95 transition-all duration-300 delay-75 group"
+            className="font-playwrite text-base lg:text-xl  bg-linear-to-r from-amber-900 via-green-800 to-amber-900 bg-clip-text text-transparent font-black hover:opacity-90 active:scale-95 transition-all duration-300 delay-75 group"
           >
             synopsis ai
           </Link>

@@ -3,9 +3,8 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 export interface IUser extends Document {
   _id: mongoose.Types.ObjectId;
   email: string;
-  currentPlan: string;
   summaries: mongoose.Types.ObjectId[];
-  freeLimit: number;
+  dayLimit: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,12 +14,10 @@ const userSchema = new Schema<IUser>(
     email: {
       type: String, required: true, unique: true
     },
-    currentPlan: {
-      type: String, default: "Free"
-    },
-    freeLimit: {
+    dayLimit: {
       type: Number,
-      default: 4
+      default: 0,
+      required:true
     },
     summaries: [
       {

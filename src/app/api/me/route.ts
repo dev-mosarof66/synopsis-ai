@@ -37,8 +37,7 @@ export async function POST(req: NextRequest) {
       user: {
         _id: user._id,
         email: user.email,
-        freeLimit: user.freeLimit,
-        currentPlan: user.currentPlan,
+        dayLimit: user.dayLimit,
         createdAt: user.createdAt,
         summaries: user.summaries
       }

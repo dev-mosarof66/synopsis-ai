@@ -65,9 +65,9 @@ export async function POST(req: NextRequest) {
     if (user) {
       user.summaries = user.summaries || [];
       user.summaries.push(response?._id);
-      user.freeLimit = Math.max(0, user.freeLimit - 1);
+      user.dayLimit = Math.max(0, user.dayLimit - 1);
     } else {
-      user = new User({ email, summaries: [response._id] });
+      user = new User({ email, summaries: [response._id], dayLimit: 2 });
     }
 
     await user.save();
