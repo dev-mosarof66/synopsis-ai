@@ -1,10 +1,24 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { aj } from './lib/arcjet';
+import { NextResponse } from 'next/server';
 
-const isProtectedRoute = createRouteMatcher(['/upload', '/your-summaries','/signin']);
+
+const isProtectedRoute = createRouteMatcher(['/upload', '/your-summaries', '/signin']);
 
 
 
 export default clerkMiddleware(async (auth, req) => {
+    const decision = await aj.protect(req, { requested: 5 })
+    if (decision.isDenied()) {
+        if (decision.reason.isBot()) {
+            return NextResponse.json(
+                { message: "No bots allowed", reason: decision.reason },
+                { status: 403 },)
+        }
+        return NextResponse.json(
+            { message: "Too Many Requests, please try again later" },
+            { status: 429 });
+    }
     if (isProtectedRoute(req)) await auth.protect()
 });
 

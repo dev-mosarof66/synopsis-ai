@@ -3,10 +3,12 @@ import { connectDB } from '@/db/db'
 import User from '@/models/user.model'
 import '@/models/response.model'
 
+
 await connectDB();
 
 export async function POST(req: NextRequest) {
   try {
+
 
     const { email } = await req.json();
     console.log('received email : ', email);
