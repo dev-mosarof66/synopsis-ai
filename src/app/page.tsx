@@ -7,7 +7,7 @@ import { SignedOut } from "@clerk/nextjs";
 const Home = () => {
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center">
+    <div className="w-full bg-gray-100 flex flex-col items-center justify-center">
       <HeroSection />
       <UserDemo />
       <HowItWorks />

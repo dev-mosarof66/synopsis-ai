@@ -39,10 +39,10 @@ export default function RootLayout({
         <GetUserData>
           <html lang="en">
             <body
-              className={`${roboto.variable} ${geist.variable} antialiased w-full min-h-screen flex flex-col`}
+              className={`${roboto.variable} ${geist.variable} antialiased bg-gray-100`}
             >
               <Navbar />
-              <main className="flex-1 w-full">{children}</main>
+              <main className="w-full">{children}</main>
               <Footer />
               <Toaster position="bottom-right" />
               <HotToaster position="bottom-right" />
