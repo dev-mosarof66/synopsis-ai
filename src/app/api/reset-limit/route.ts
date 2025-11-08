@@ -12,7 +12,7 @@ export async function GET() {
 
         console.log('reset limit called..')
 
-        await User.updateMany({}, { $set: { dayLimit: 0 } })
+        await User.updateMany({}, { $set: { dayLimit: 3 } })
         console.log('reset limit done..')
         return NextResponse.json({
             message: "All users day limit reseted successfully. ",
