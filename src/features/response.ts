@@ -15,6 +15,8 @@ export type ResponseItem = {
   description:string;
   url: string;
   summaries: SummaryData[];
+  createdAt: string,
+  updatedAt: string;
 };
 
 type SummaryState = {

@@ -35,7 +35,7 @@ const YourSummaries = () => {
       {/* header  */}
       <Header />
       {/* banner  */}
-      <Banner />
+      <Banner loading={loading} />
       {/* list  */}
       <SummaryList summaries={summaries} setSummaries={setSummaries} summaryLoading={loading} />
     </div>

@@ -98,7 +98,7 @@ const SummaryCard = ({ summary, handleDelete, onDownload }: any) => {
               {summary.title}
             </p>
           </div>
-          <p className="w-fit text-[9px] bg-purple-100 px-1 py-0.5 rounded-md border border-purple-400">
+          <p className="w-fit text-[8.5px] bg-purple-100 mx-6 px-1 py-0.5 rounded-md border border-purple-400">
             {moment(summary.createdAt).fromNow()}
           </p>
         </div>
